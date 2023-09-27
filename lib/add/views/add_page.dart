@@ -2,12 +2,11 @@ import 'package:devtalks_cluj_2023/list/list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../list/models/task.dart';
 import '../bloc/add_bloc.dart';
 
 class AddPage extends StatelessWidget {
-  TextEditingController titleController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   AddPage({super.key});
@@ -37,7 +36,16 @@ class AddPage extends StatelessWidget {
       ),
       body: BlocProvider(
         create: (context) => AddBloc(),
-        child: BlocBuilder<AddBloc, AddState>(
+        child: BlocConsumer<AddBloc, AddState>(
+          listener: (context, state) {
+            if (state is AddEdgeResult) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message),
+                ),
+              );
+            }
+          },
           builder: (context, state) {
             if (state is AddLoading) {
               return const Center(
@@ -65,6 +73,11 @@ class AddPage extends StatelessWidget {
                       },
                       child: Text('Go to tasks list'),
                     ),
+                    IconButton(
+                        icon: const Icon(Icons.star),
+                        onPressed: () {
+                          context.read<AddBloc>().add(CallEdgeFunction());
+                        }),
                   ],
                 ),
               );

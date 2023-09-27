@@ -1,8 +1,7 @@
 import 'package:devtalks_cluj_2023/list/list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-
+import 'package:provider/provider.dart';
 import '../../add/add.dart';
 
 class ListPage extends StatelessWidget {

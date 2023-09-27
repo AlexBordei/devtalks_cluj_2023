@@ -9,3 +9,5 @@ class AddTaskEvent extends AddEvent {
 }
 
 class LoadInitial extends AddEvent {}
+
+class CallEdgeFunction extends AddEvent {}

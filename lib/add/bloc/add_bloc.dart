@@ -25,5 +25,16 @@ class AddBloc extends Bloc<AddEvent, AddState> {
       emit(AddLoaded());
     });
     on<LoadInitial>((event, emit) => emit(AddInitial()));
+    on<CallEdgeFunction>((event, emit) async {
+      emit(AddLoading());
+
+      final res = await Supabase.instance.client.functions
+          .invoke('add_task', body: {'name': 'Alex'});
+      final data = res.data;
+
+      print(data);
+
+      emit(AddEdgeResult(message: data.toString()));
+    });
   }
 }
