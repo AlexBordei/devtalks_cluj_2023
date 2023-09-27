@@ -1,6 +1,15 @@
+import 'package:devtalks_cluj_2023/add/add.dart';
+import 'package:devtalks_cluj_2023/list/list.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Supabase.initialize(
+      url: "https://gxuqpkdlbyfpglneyoog.supabase.co",
+      anonKey:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd4dXFwa2RsYnlmcGdsbmV5b29nIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTU3ODEzNTksImV4cCI6MjAxMTM1NzM1OX0.-eu3zCkbCiDGFy3m-iOPM3MrCBhkoYUp5uUBRslfAn0");
   runApp(const MyApp());
 }
 
@@ -15,7 +24,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: AddPage(),
     );
   }
 }
@@ -60,7 +69,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () {
+          Navigator.of(context).push(ListPage.route());
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
